@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CD942031-070D-4870-98AE-3B2A52881066}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>engine</RootNamespace>
+    <AssemblyName>engine</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=2.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.2.0.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Camera.cs" />
+    <Compile Include="Entities\Light.cs" />
+    <Compile Include="RenderEngine\MasterRenderer.cs" />
+    <Compile Include="RenderEngine\TerrainRenderer.cs" />
+    <Compile Include="Shaders\TerrainShader.cs" />
+    <Compile Include="Terrains\Terrain.cs" />
+    <Compile Include="Window.cs" />
+    <Compile Include="Models\TexturedModel.cs" />
+    <Compile Include="RenderEngine\OBJLoader.cs" />
+    <Compile Include="Shaders\StaticShader.cs" />
+    <Compile Include="Textures\ModelTexture.cs" />
+    <Compile Include="Tools\Maths.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="RenderEngine\Loader.cs" />
+    <Compile Include="Models\RawModel.cs" />
+    <Compile Include="RenderEngine\EntityRenderer.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Shaders\ShaderProgram.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\Programs\terrainFragmentShader.frag" />
+    <None Include="Shaders\Programs\fragmentShader.frag" />
+    <None Include="Shaders\Programs\terrainVertexShader.vert" />
+    <None Include="Shaders\Programs\vertexShader.vert" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="res\texture.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
