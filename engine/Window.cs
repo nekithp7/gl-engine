@@ -36,15 +36,15 @@ namespace engine
 			camera = new Camera();
 
 			var objLoader = new OBJLoader();
-			var rawModel = objLoader.LoadObjModel("dragon", loader);
-			var texture = new ModelTexture(loader.LoadTexture("dragonTexture"))
+			var rawModel = objLoader.LoadObjModel("entity", loader);
+			var texture = new ModelTexture(loader.LoadTexture("texture_entity"))
 			{
 				ShineDamper = 10.0f,
 				Reflectivity = 1.0f
 			};
 			var texturedModel = new TexturedModel(rawModel, texture);
 
-			var terrainTexture = new ModelTexture(loader.LoadTexture("texture"));
+			var terrainTexture = new ModelTexture(loader.LoadTexture("texture_terrain"));
 			terrain = new Terrain(0, 0, loader, terrainTexture);
 
 			entity = new Entity(texturedModel,
