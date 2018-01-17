@@ -1,6 +1,6 @@
 ﻿using engine.Models;
-using engine.RenderEngine;
 using engine.Textures;
+using engine.RenderEngine;
 
 namespace engine.Terrains
 {
@@ -40,14 +40,14 @@ namespace engine.Terrains
 			{
 				for (int j = 0; j < VERTEX_COUNT; j++)
 				{
-					vertices[vertexPointer * 3] = (float)j / ((float)VERTEX_COUNT - 1) * SIZE;
+					vertices[vertexPointer * 3] = j / ((float)VERTEX_COUNT - 1) * SIZE;
 					vertices[vertexPointer * 3 + 1] = 0;
-					vertices[vertexPointer * 3 + 2] = (float)i / ((float)VERTEX_COUNT - 1) * SIZE;
+					vertices[vertexPointer * 3 + 2] = i / ((float)VERTEX_COUNT - 1) * SIZE;
 					normals[vertexPointer * 3] = 0;
 					normals[vertexPointer * 3 + 1] = 1;
 					normals[vertexPointer * 3 + 2] = 0;
-					textureCoords[vertexPointer * 2] = (float)j / ((float)VERTEX_COUNT - 1);
-					textureCoords[vertexPointer * 2 + 1] = (float)i / ((float)VERTEX_COUNT - 1);
+					textureCoords[vertexPointer * 2] = j / ((float)VERTEX_COUNT - 1);
+					textureCoords[vertexPointer * 2 + 1] = i / ((float)VERTEX_COUNT - 1);
 					vertexPointer++;
 				}
 			}

@@ -26,6 +26,24 @@ namespace engine.RenderEngine
 			return new RawModel(vaoID, indices.Length);
 		}
 
+		public void CleanUp()
+		{
+			foreach (var vaoID in vaos)
+			{
+				GL.DeleteVertexArray(vaoID);
+			}
+
+			foreach (var vboID in vbos)
+			{
+				GL.DeleteBuffer(vboID);
+			}
+
+			foreach (var texture in textures)
+			{
+				GL.DeleteTexture(texture);
+			}
+		}
+
 		private int CreateVao()
 		{
 			int vaoID = GL.GenVertexArray();
@@ -92,24 +110,6 @@ namespace engine.RenderEngine
 			GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
 
 			return textureId;
-		}
-
-		public void CleanUp()
-		{
-			foreach (var vaoID in vaos)
-			{
-				GL.DeleteVertexArray(vaoID);
-			}
-
-			foreach (var vboID in vbos)
-			{
-				GL.DeleteBuffer(vboID);
-			}
-
-			foreach (var texture in textures)
-			{
-				GL.DeleteTexture(texture);
-			}
 		}
 	}
 }

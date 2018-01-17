@@ -12,7 +12,7 @@ namespace engine.Models
 			this.model = model;
 			this.texture = texture;
 		}
-		
+
 		public RawModel Model => model;
 		public ModelTexture Texture => texture;
 	}

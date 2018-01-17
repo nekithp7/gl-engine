@@ -1,6 +1,7 @@
-﻿using engine.Entities;
+﻿using OpenTK;
+
+using engine.Entities;
 using engine.Tools;
-using OpenTK;
 
 namespace engine.Shaders
 {

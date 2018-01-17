@@ -6,8 +6,8 @@ using OpenTK.Graphics.OpenGL;
 using engine.Models;
 using engine.Textures;
 using engine.Entities;
-using engine.RenderEngine;
 using engine.Terrains;
+using engine.RenderEngine;
 
 namespace engine
 {
@@ -19,9 +19,8 @@ namespace engine
 		Loader loader;
 		MasterRenderer renderer;
 
-		Terrain terrain;
-
 		Entity entity;
+		Terrain terrain;
 		Light light;
 		Camera camera;
 
@@ -66,7 +65,7 @@ namespace engine
 			base.OnRenderFrame(e);
 
 			renderer.ProcessTerrain(terrain);
-			//renderer.ProcessEntity(entity);
+			renderer.ProcessEntity(entity);
 			renderer.Render(light, camera);
 
 			SwapBuffers();

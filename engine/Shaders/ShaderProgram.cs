@@ -1,6 +1,7 @@
 ﻿using System.IO;
-using OpenTK.Graphics.OpenGL;
+
 using OpenTK;
+using OpenTK.Graphics.OpenGL;
 
 namespace engine.Shaders
 {

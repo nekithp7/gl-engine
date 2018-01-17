@@ -6,10 +6,7 @@
 		private float shineDamper = 1.0f;
 		private float reflectivity = 0.0f;
 
-		public ModelTexture(int textureId)
-		{
-			this.textureId = textureId;
-		}
+		public ModelTexture(int textureId) => this.textureId = textureId;
 
 		public int TextureId => textureId;
 		public float ShineDamper { get => shineDamper; set => shineDamper = value; }

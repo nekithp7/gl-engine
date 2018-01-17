@@ -1,7 +1,9 @@
-﻿using engine.Models;
-using OpenTK;
+﻿using System.IO;
 using System.Collections.Generic;
-using System.IO;
+
+using OpenTK;
+
+using engine.Models;
 
 namespace engine.RenderEngine
 {
@@ -21,9 +23,9 @@ namespace engine.RenderEngine
 			int[] indicesArray;
 
 			using (var stream = new StreamReader(@"..\..\res\" + fileName + ".obj"))
-			{				
+			{
 				while (true)
-				{					
+				{
 					line = stream.ReadLine();
 					string[] currentLine = line.Split(' ');
 
@@ -62,7 +64,7 @@ namespace engine.RenderEngine
 				}
 
 				while (!stream.EndOfStream)
-				{					
+				{
 					if (!line.StartsWith("f "))
 					{
 						line = stream.ReadLine();

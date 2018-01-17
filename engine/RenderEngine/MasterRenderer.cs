@@ -2,10 +2,10 @@
 
 using OpenTK.Graphics.OpenGL;
 
+using engine.Tools;
 using engine.Models;
 using engine.Shaders;
 using engine.Entities;
-using engine.Tools;
 using engine.Terrains;
 
 namespace engine.RenderEngine
@@ -82,17 +82,17 @@ namespace engine.RenderEngine
 			terrains.Add(terrain);
 		}
 
+		public void CleanUp()
+		{
+			staticShader.CleanUp();
+			terrainShader.CleanUp();
+		}
+
 		private void Prepare()
 		{
 			GL.Enable(EnableCap.DepthTest);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 			GL.ClearColor(0.6f, 0, 0, 1);
-		}
-
-		public void CleanUp()
-		{
-			staticShader.CleanUp();
-			terrainShader.CleanUp();
 		}
 	}
 }

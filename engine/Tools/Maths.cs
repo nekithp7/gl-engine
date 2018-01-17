@@ -1,5 +1,7 @@
 ﻿using System;
+
 using OpenTK;
+
 using engine.Entities;
 
 namespace engine.Tools
@@ -50,7 +52,7 @@ namespace engine.Tools
 			var scaleMatrix = Matrix4.CreateScale(scale);
 
 			return scaleMatrix * rotationMatrix * translationMatrix;
-		}		
+		}
 
 		private static void VectorToRad(ref Vector3 rotation, out Vector3 vec)
 		{
