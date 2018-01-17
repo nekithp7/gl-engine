@@ -5,19 +5,20 @@ namespace engine.Entities
 {
 	public class Camera
 	{
-		private Vector3 position;
+		private Vector3 position = new Vector3(0.0f, 1.0f, 0.0f);
 		private float moveStep = 1.0f;
-		private float pitch;
-		private float yaw;
-		private float roll;
+		private float pitch = 0.0f;
+		private float yaw = 0.0f;
+		private float roll = 0.0f;
 
-		public Camera()
+		public Camera() { }
+
+		public Camera(float pitch, float yaw, float roll, Vector3 position)
 		{
-			position = new Vector3(0.0f);
-
-			pitch = 0;
-			yaw = 0;
-			roll = 0;
+			this.pitch = pitch;
+			this.yaw = yaw;
+			this.roll = roll;
+			this.position = position;
 		}
 
 		public Vector3 Position { get => position; }
