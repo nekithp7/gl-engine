@@ -11,6 +11,8 @@ namespace engine.RenderEngine
 {
 	public class Loader
 	{
+		private const string PATH = @"..\..\res\textures\";
+
 		private List<int> vaos = new List<int>();
 		private List<int> vbos = new List<int>();
 		private List<int> textures = new List<int>();
@@ -24,6 +26,38 @@ namespace engine.RenderEngine
 			StoreDataInAttributeList(2, 3, normals);
 			GL.BindVertexArray(0);
 			return new RawModel(vaoID, indices.Length);
+		}
+
+		public int LoadTexture(string file)
+		{
+			var textureId = GL.GenTexture();
+			textures.Add(textureId);
+			Bitmap image;
+
+			try
+			{
+				image = new Bitmap($"{PATH}{file}.png");
+			}
+			catch (ArgumentException ex)
+			{
+				image = new Bitmap($"{PATH}texture_default.png");
+				Console.WriteLine($"Texture file [ {file}.png ] not found. Loaded default texture.");
+				Console.WriteLine(ex.StackTrace);
+			}
+
+			GL.BindTexture(TextureTarget.Texture2D, textureId);
+			BitmapData data = image.LockBits(
+				new Rectangle(0, 0, image.Width, image.Height),
+				ImageLockMode.ReadOnly,
+				System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+
+			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
+					OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
+
+			image.UnlockBits(data);
+			GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+
+			return textureId;
 		}
 
 		public void CleanUp()
@@ -89,27 +123,6 @@ namespace engine.RenderEngine
 				(IntPtr)(indices.Length * sizeof(int)),
 				indices,
 				BufferUsageHint.StaticDraw);
-		}
-
-		public int LoadTexture(string file)
-		{
-			var textureId = GL.GenTexture();
-			textures.Add(textureId);
-
-			Bitmap image = new Bitmap(@"..\..\res\" + file + ".png");
-			GL.BindTexture(TextureTarget.Texture2D, textureId);
-			BitmapData data = image.LockBits(
-				new Rectangle(0, 0, image.Width, image.Height),
-				ImageLockMode.ReadOnly,
-				System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-
-			GL.TexImage2D(TextureTarget.Texture2D, 0, PixelInternalFormat.Rgba, data.Width, data.Height, 0,
-					OpenTK.Graphics.OpenGL.PixelFormat.Bgra, PixelType.UnsignedByte, data.Scan0);
-
-			image.UnlockBits(data);
-			GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-
-			return textureId;
 		}
 	}
 }
