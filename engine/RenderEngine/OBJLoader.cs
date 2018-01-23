@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 
 using OpenTK;
@@ -9,6 +10,8 @@ namespace engine.RenderEngine
 {
 	public class OBJLoader
 	{
+		private const string PATH = @"..\..\res\models\";
+
 		public RawModel LoadObjModel(string fileName, Loader loader)
 		{
 			string line;
@@ -22,7 +25,20 @@ namespace engine.RenderEngine
 			float[] normalsArray;
 			int[] indicesArray;
 
-			using (var stream = new StreamReader(@"..\..\res\" + fileName + ".obj"))
+			StreamReader stream;
+
+			try
+			{
+				stream = new StreamReader($"{PATH}{fileName}.obj");
+			}
+			catch (IOException ex)
+			{
+				stream = new StreamReader($"{PATH}default_model.obj");
+				Console.WriteLine($"Model file [ {fileName}.obj ] not found. Loaded default model.");
+				Console.WriteLine(ex.StackTrace);
+			}
+
+			using (stream)
 			{
 				while (true)
 				{
