@@ -27,6 +27,8 @@ namespace engine.RenderEngine
 
 		public MasterRenderer(int width, int height)
 		{
+			GL.Enable(EnableCap.DepthTest);
+			GL.ClearColor(0.6f, 0, 0, 1);
 			GL.Enable(EnableCap.CullFace);
 			GL.CullFace(CullFaceMode.Back);
 
@@ -90,9 +92,7 @@ namespace engine.RenderEngine
 
 		private void Prepare()
 		{
-			GL.Enable(EnableCap.DepthTest);
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-			GL.ClearColor(0.6f, 0, 0, 1);
 		}
 	}
 }
