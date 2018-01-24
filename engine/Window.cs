@@ -16,26 +16,23 @@ namespace engine
 		private const int WIDTH = 800;
 		private const int HEIGHT = 600;
 
-		Loader loader;
-		MasterRenderer renderer;
+		Camera camera = new Camera();
+		Loader loader = new Loader();
+		OBJLoader objLoader = new OBJLoader();
+		Light light = new Light(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(1.0f));
 
+		MasterRenderer renderer;
 		Entity entity;
-		Terrain terrain;
-		Light light;
-		Camera camera;
+		Terrain terrain;		
 
 		public Window()
 			: base(WIDTH, HEIGHT, GraphicsMode.Default, "test")
 		{
 			VSync = VSyncMode.On;
-
 			GL.Viewport(0, 0, WIDTH, HEIGHT);
 
-			loader = new Loader();
 			renderer = new MasterRenderer(WIDTH, HEIGHT);
-			camera = new Camera();
 
-			var objLoader = new OBJLoader();
 			var rawModel = objLoader.LoadObjModel("entity", loader);
 			var texture = new ModelTexture(loader.LoadTexture("texture_entity"))
 			{
@@ -43,22 +40,29 @@ namespace engine
 				Reflectivity = 1.0f
 			};
 			var texturedModel = new TexturedModel(rawModel, texture);
-
-			var terrainTexture = new ModelTexture(loader.LoadTexture("texture_terrain"));
-			terrain = new Terrain(0, 0, loader, terrainTexture);
-
 			entity = new Entity(texturedModel,
 				new Vector3(0.0f, 0.0f, -15.0f),
 				new Vector3(0.0f),
 				1.0f);
-			light = new Light(new Vector3(0.0f, 0.0f, 0.0f), new Vector3(1.0f));
 
-			camera = new Camera();
-
-			KeyDown += OnKeyDown;
+			var terrainTexture = new ModelTexture(loader.LoadTexture("texture_terrain"));
+			terrain = new Terrain(0, 0, loader, terrainTexture);			
 		}
 
-		protected override void OnUpdateFrame(FrameEventArgs e) => base.OnUpdateFrame(e);
+		public sealed override void Dispose()
+		{
+			renderer.CleanUp();
+			loader.CleanUp();
+			Dispose(true);
+			base.Dispose();
+		}
+
+		protected override void OnUpdateFrame(FrameEventArgs e)
+		{
+			base.OnUpdateFrame(e);			
+
+			HandleKeyboardState(Keyboard.GetState());
+		}
 
 		protected override void OnRenderFrame(FrameEventArgs e)
 		{
@@ -71,24 +75,30 @@ namespace engine
 			SwapBuffers();
 		}
 
-		public sealed override void Dispose()
+		private void HandleKeyboardState(KeyboardState state)
 		{
-			renderer.CleanUp();
-			loader.CleanUp();
-			Dispose(true);
-			base.Dispose();
-		}
-
-		private void OnKeyDown(object sender, KeyboardKeyEventArgs e)
-		{
-			switch (e.Key)
+			if (state.IsAnyKeyDown)
 			{
-				case Key.Escape:
+				if (state[Key.Escape])
+				{
 					Exit();
-					break;
-				default:
-					camera.Move(e.Key);
-					break;
+				}
+				else if (state[Key.W])
+				{
+					camera.Move(Key.W);
+				}
+				else if (state[Key.A])
+				{
+					camera.Move(Key.A);
+				}
+				else if (state[Key.S])
+				{
+					camera.Move(Key.S);
+				}
+				else if (state[Key.D])
+				{
+					camera.Move(Key.D);
+				}
 			}
 		}
 	}
