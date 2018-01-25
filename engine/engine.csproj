@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Entities\Camera.cs" />
     <Compile Include="Entities\Light.cs" />
+    <Compile Include="Entities\Player.cs" />
     <Compile Include="RenderEngine\MasterRenderer.cs" />
     <Compile Include="RenderEngine\TerrainRenderer.cs" />
     <Compile Include="Shaders\TerrainShader.cs" />

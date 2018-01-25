@@ -62,6 +62,6 @@ namespace engine.Tools
 			vec = rotation;
 		}
 
-		private static float ToRad(float angle) => angle * (float)(Math.PI / 180);
+		public static float ToRad(float angle) => angle * (float)(Math.PI / 180);
 	}
 }

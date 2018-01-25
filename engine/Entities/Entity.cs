@@ -6,10 +6,10 @@ namespace engine.Entities
 {
 	public class Entity
 	{
-		private TexturedModel model;
-		private Vector3 position;
-		private Vector3 rotation;
-		private float scale;
+		protected TexturedModel model;
+		protected Vector3 position;
+		protected Vector3 rotation;
+		protected float scale;
 
 		public Entity(TexturedModel model, Vector3 position, Vector3 rotation, float scale)
 		{
@@ -24,8 +24,8 @@ namespace engine.Entities
 		public Vector3 Rotation => rotation;
 		public float Scale => scale;
 
-		public void IncreasePosition(Vector3 delta) => Vector3.Add(ref position, ref delta, out position);
+		public void Translate(Vector3 delta) => Vector3.Add(ref position, ref delta, out position);
 
-		public void IncreaseRotation(Vector3 delta) => Vector3.Add(ref rotation, ref delta, out rotation);
+		public void Rotate(Vector3 delta) => Vector3.Add(ref rotation, ref delta, out rotation);
 	}
 }
