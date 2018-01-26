@@ -46,12 +46,7 @@ namespace engine.Shaders
 
 		public void LoadProjectionMatrix(Matrix4 matrix) => LoadMatrix(projectionMatrix, matrix);
 
-		public void LoadViewMatrix(Camera camera)
-		{
-			var matrix = Maths.CreateViewMatrix(camera);
-
-			LoadMatrix(viewMatrix, matrix);
-		}
+		public void LoadViewMatrix(Camera camera) => LoadMatrix(viewMatrix, camera.ViewMatrix);
 
 		public void LoadTransformationMatrix(Matrix4 matrix) => LoadMatrix(transformationMatrix, matrix);
 

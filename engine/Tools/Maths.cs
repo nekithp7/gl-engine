@@ -28,17 +28,6 @@ namespace engine.Tools
 			return matrix;
 		}
 
-		public static Matrix4 CreateViewMatrix(Camera camera)
-		{
-			var rotationMatrix = Matrix4.CreateRotationX(ToRad(camera.Pitch));
-			rotationMatrix *= Matrix4.CreateRotationY(ToRad(camera.Yaw));
-
-			var negativeCameraPos = new Vector3(-camera.Position.X, -camera.Position.Y, -camera.Position.Z);
-			var translationMatrix = Matrix4.CreateTranslation(negativeCameraPos);
-
-			return rotationMatrix * translationMatrix;
-		}
-
 		public static Matrix4 CreateTransformationMatrix(Vector3 translation, Vector3 rotation, float scale)
 		{
 			VectorToRad(ref rotation, out Vector3 rotationInRad);

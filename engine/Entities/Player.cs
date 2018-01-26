@@ -1,10 +1,7 @@
-﻿using static System.Math;
-
-using OpenTK;
+﻿using OpenTK;
 using OpenTK.Input;
 
 using engine.Models;
-using static engine.Tools.Maths;
 
 namespace engine.Entities
 {
@@ -13,59 +10,52 @@ namespace engine.Entities
 		private const float MOVE_SPEED = 0.1f;
 
 		private Camera camera;
-		private float currentSpeed = 0.0f;
 
 		public Player(TexturedModel model, Vector3 position, Vector3 rotation, float scale)
-			: base(model, position, rotation, scale) => camera = new Camera(position);
+			: base(model, position, rotation, scale) => camera = new Camera(ref position, 2.0f);
 
 		public Camera Camera => camera;
 
 		public void Move(Key key)
 		{
-			bool isStrafe = false;
+			float dx = 0, dz = 0;
 			switch (key)
 			{
 				case Key.W:
-					currentSpeed = -MOVE_SPEED;
-					isStrafe = false;
+					dz = 2;
 					break;
 
 				case Key.S:
-					currentSpeed = MOVE_SPEED;
-					isStrafe = false;
+					dz = -2;
 					break;
 
 				case Key.D:
-					currentSpeed = MOVE_SPEED;
-					isStrafe = true;
+					dx = 2;
 					break;
 
 				case Key.A:
-					currentSpeed = -MOVE_SPEED;
-					isStrafe = true;
+					dx = -2;
 					break;
 
 				default:
-					currentSpeed = 0;
 					break;
 			}
 
-			var (offsetX, offsetZ) = GetPosition(isStrafe);
+			var viewMatrix = camera.ViewMatrix;
+			var forward = new Vector3(viewMatrix[0, 2], viewMatrix[1, 2], viewMatrix[2, 2]);
+			var strafe = new Vector3(viewMatrix[0, 0], viewMatrix[1, 0], viewMatrix[2, 0]);
 
-			Translate(new Vector3(offsetX, 0.0f, offsetZ));
+			var offset = (-dz * forward + dx * strafe) * MOVE_SPEED;
+			offset.Y = 0.0f;
+
+			Translate(offset);
+			camera.Move(ref position, offset);
 		}
 
 		public void Rotate(int xDelta, int yDelta)
 		{
 			Rotate(new Vector3(0, -xDelta * 0.1f, 0));
-		}
-
-		private (float offsetX, float offsetZ) GetPosition(bool isStrafe)
-		{
-			float offsetX = currentSpeed * (float)Sin(ToRad(rotation.Y));
-			float offsetZ = currentSpeed * (float)Cos(ToRad(rotation.Y));
-
-			return isStrafe ? (offsetZ, offsetX) : (offsetX, offsetZ);
+			camera.Rotate(ref position, ref rotation, xDelta, yDelta);
 		}
 	}
 }
