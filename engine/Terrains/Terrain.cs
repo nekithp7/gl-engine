@@ -46,8 +46,8 @@ namespace engine.Terrains
 					normals[vertexPointer * 3] = 0;
 					normals[vertexPointer * 3 + 1] = 1;
 					normals[vertexPointer * 3 + 2] = 0;
-					textureCoords[vertexPointer * 2] = j / ((float)VERTEX_COUNT - 1);
-					textureCoords[vertexPointer * 2 + 1] = i / ((float)VERTEX_COUNT - 1);
+					textureCoords[vertexPointer * 2] = j / ((float)VERTEX_COUNT - 1) * SIZE;
+					textureCoords[vertexPointer * 2 + 1] = i / ((float)VERTEX_COUNT - 1) * SIZE;
 					vertexPointer++;
 				}
 			}
